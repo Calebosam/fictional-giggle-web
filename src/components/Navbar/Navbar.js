@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import AdbIcon from '@mui/icons-material/Adb';
 
 const Navbar = () => {
   return (
@@ -16,11 +16,29 @@ const Navbar = () => {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
+            aria-label="logo"
+            sx={{ mr: 0 }}
+            href='/'
           >
-            <MenuIcon />
+            <AdbIcon />
           </IconButton>
+          <Typography
+            href='/'
+            variant="h6"
+            noWrap
+            component="a"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Button color="inherit" href='/sign-in'>Sign In</Button>
           </Typography>
