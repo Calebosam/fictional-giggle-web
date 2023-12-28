@@ -4,6 +4,7 @@ import UserCard from "../components/UserCard/UserCard";
 import { BASE_URL } from "../config";
 import axios from "axios";
 import UserAccount from "../components/UseAccount/UserAccount";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const [externalUsers, setExternalUsers] = useState([]);
@@ -11,17 +12,30 @@ const Dashboard = () => {
   const [systemUsers, setSystemUsers] = useState([]);
 
   const handleDataFetch = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/v1/externalUsers`);
-    setExternalSrc(data.src);
-    setExternalUsers(data.data);
+    try {
+      const { data } = await axios.get(`${BASE_URL}/api/v1/externalUsers`);
+      setExternalSrc(data.src);
+      setExternalUsers(data.data);
+    } catch (err) {
+      toast.error("Error getting your data!");
+    }
   };
 
   const handleClearCache = async () => {
-    await axios.delete(`${BASE_URL}/api/v1/externalUsers`);
+    try {
+      await axios.delete(`${BASE_URL}/api/v1/externalUsers`);
+      toast.success("Redis Cache is cleared")
+    } catch (err) {
+      toast.error("Error getting your data!");
+    }
   };
   const handleSystemDataFetch = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/v1/users`);
-    setSystemUsers(data.data);
+    try {
+      const { data } = await axios.get(`${BASE_URL}/api/v1/users`);
+      setSystemUsers(data.data);
+    } catch (err) {
+      toast.error("Error getting your data!");
+    }
   };
   useEffect(() => {
     handleSystemDataFetch();
