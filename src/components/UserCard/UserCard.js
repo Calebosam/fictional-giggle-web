@@ -33,11 +33,11 @@ const UserCard = (props) => {
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {user.firstName}
+                    {user.firstName? user.firstName: user.name.split(" ")[0]}
                   </Typography>
                   <Typography>
-                    My name is {user.firstName} {user.lastName} with email{" "}
-                    {user.email} and my password is {user.password}
+                    My name is {user.firstName? user.firstName: user.name } {user.lastName} with email{" "}
+                    {user.email} and I love the Tech World
                   </Typography>
                 </CardContent>
                 <CardActions>

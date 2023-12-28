@@ -27,7 +27,6 @@ const Dashboard = () => {
 
   const handleDataFetch = async ()=> {
     const {data} = await axios.get(`${BASE_URL}/api/v1/externalUsers`)
-    console.log(data)
     setExternalSrc(data.src)
     setExternalUsers(data.data)
   }
