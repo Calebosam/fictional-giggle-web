@@ -54,4 +54,13 @@ const UserCard = (props) => {
   );
 };
 
+UserCard.propTypes = {
+  users: PropTypes.shape([{
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string
+  }]).isRequired,
+};
+
 export default UserCard;
