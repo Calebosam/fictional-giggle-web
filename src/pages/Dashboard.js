@@ -1,59 +1,68 @@
 import React, { useEffect, useState } from "react";
-import { Stack,Button } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 import UserCard from "../components/UserCard/UserCard";
 import { BASE_URL } from "../config";
-import axios from 'axios'
+import axios from "axios";
+import UserAccount from "../components/UseAccount/UserAccount";
 
 const Dashboard = () => {
-  const [externalUsers, setExternalUsers] = useState([])
-  const [externalSrc, setExternalSrc] = useState("Typicode")
-  const [systemUsers, setSystemUsers] = useState([])
+  const [externalUsers, setExternalUsers] = useState([]);
+  const [externalSrc, setExternalSrc] = useState("Typicode");
+  const [systemUsers, setSystemUsers] = useState([]);
 
-  const handleDataFetch = async ()=> {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/externalUsers`)
-    setExternalSrc(data.src)
-    setExternalUsers(data.data)
-  }
+  const handleDataFetch = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/externalUsers`);
+    setExternalSrc(data.src);
+    setExternalUsers(data.data);
+  };
 
-  const handleClearCache = async ()=> {
-    await axios.delete(`${BASE_URL}/api/v1/externalUsers`)
-  }
-  const handleSystemDataFetch = async ()=> {
-    const {data} = await axios.get(`${BASE_URL}/api/v1/users`)
-    setSystemUsers(data.data)
-  }
-  useEffect( ()=>{
-    handleSystemDataFetch()
-    handleDataFetch()
-  }, [])
+  const handleClearCache = async () => {
+    await axios.delete(`${BASE_URL}/api/v1/externalUsers`);
+  };
+  const handleSystemDataFetch = async () => {
+    const { data } = await axios.get(`${BASE_URL}/api/v1/users`);
+    setSystemUsers(data.data);
+  };
+  useEffect(() => {
+    handleSystemDataFetch();
+    handleDataFetch();
+  }, []);
   return (
     <>
-      <div>
-        <h1>User Dashboard</h1>
-        <p>id: {localStorage.getItem("id")}</p>
-        <p>First Name: {localStorage.getItem("firstName")}</p>
-        <p>Last Name: {localStorage.getItem("lastName")}</p>
-        <p>Email: {localStorage.getItem("email")}</p>
-        <p>Password: {localStorage.getItem("password")}</p>
+      <div style={{ width: "35%", margin: "0 auto" }}>
+        <h1 style={{ textAlign: "center" }}>User Dashboard</h1>
+        <UserAccount
+          id={localStorage.getItem("id")}
+          firstName={localStorage.getItem("firstName")}
+          lastName={localStorage.getItem("lastName")}
+          email={localStorage.getItem("email")}
+          password={localStorage.getItem("password")}
+          description={
+            "My role as a DevOps Engineer entails some combination of release engineering, infrastructure provisioning and management, system administration, security, and DevOps advocacy. "
+          }
+        />
       </div>
       <div>
-        <h1>System Users</h1>
-            <UserCard users={systemUsers}/>
+        <h1 style={{ textAlign: "center" }}>System Users</h1>
+        <UserCard users={systemUsers} />
       </div>
       <div>
-      
-        <h1>External Users</h1>
+        <h1 style={{ textAlign: "center" }}>External Users</h1>
         <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained" onClick={() => handleDataFetch()}>Fetch Data</Button>
-              <Button variant="outlined" onClick={() => handleClearCache()}>Clear Cache</Button>
-            </Stack>
-            <h2>Data Source: {externalSrc}</h2>
-            <UserCard users={externalUsers} />
+          sx={{ pt: 4 }}
+          direction="row"
+          spacing={2}
+          justifyContent="center"
+        >
+          <Button variant="contained" onClick={() => handleDataFetch()}>
+            Fetch Data
+          </Button>
+          <Button variant="outlined" onClick={() => handleClearCache()}>
+            Clear Cache
+          </Button>
+        </Stack>
+        <h2 style={{ textAlign: "center" }}>Data Source: {externalSrc}</h2>
+        <UserCard users={externalUsers} />
       </div>
     </>
   );
