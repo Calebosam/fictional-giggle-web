@@ -4,26 +4,10 @@ import UserCard from "../components/UserCard/UserCard";
 import { BASE_URL } from "../config";
 import axios from 'axios'
 
-const systemUsers = [
-  {
-    id: "1",
-    firstName: "Caleb",
-    lastName: "Osam",
-    email: "email@gmail.com",
-    password: "password",
-  },
-  {
-      id: "2",
-      firstName: "Gabby",
-      lastName: "Maru",
-      email: "gabby@gmail.com",
-      password: "password",
-    },
-];
-
 const Dashboard = () => {
   const [externalUsers, setExternalUsers] = useState([])
-  const [externalSrc, setExternalSrc] = useState("hello")
+  const [externalSrc, setExternalSrc] = useState("Typicode")
+  const [systemUsers, setSystemUsers] = useState([])
 
   const handleDataFetch = async ()=> {
     const {data} = await axios.get(`${BASE_URL}/api/v1/externalUsers`)
@@ -34,7 +18,12 @@ const Dashboard = () => {
   const handleClearCache = async ()=> {
     await axios.delete(`${BASE_URL}/api/v1/externalUsers`)
   }
+  const handleSystemDataFetch = async ()=> {
+    const {data} = await axios.get(`${BASE_URL}/api/v1/users`)
+    setSystemUsers(data.data)
+  }
   useEffect( ()=>{
+    handleSystemDataFetch()
     handleDataFetch()
   }, [])
   return (
