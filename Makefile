@@ -30,3 +30,29 @@ dockerhub-cred-create:
 	kubectl apply -f $(K8S_DIR)/dockerhub-secrets.yml
 dockerhub-cred-delete:
 	kubectl delete -f $(K8S_DIR)/dockerhub-secrets.yml
+
+# web-app
+web-create:
+	kubectl apply -f $(K8S_DIR)/web.yml
+web-delete:
+	kubectl delete -f $(K8S_DIR)/web.yml
+
+# Ingress
+ingress-create:
+	kubectl apply -f $(K8S_DIR)/web-ingress.yml
+ingress-delete:
+	kubectl delete -f $(K8S_DIR)/web-ingress.yml
+
+# Resource Query
+pods:
+	kubectl get pods
+svc:
+	kubectl get service
+secret:
+	kubectl get secret
+depl:
+	kubectl get deployment
+ing:
+	kubectl get ingress
+all:
+	kubectl get all
