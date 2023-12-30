@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fictional-giggle-web
+  namespace: fic-gig
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 30%
+  revisionHistoryLimit: 4
+  selector:
+    matchLabels:
+      app: fictional-giggle-web
+  template:
+    metadata:
+      labels:
+        app: fictional-giggle-web
+    spec:
+      containers:
+        - name: fictional-giggle-web
+          image: caleb9083/fictional-giggle-web:latest
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 250m
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: dockerhub-creds
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fictional-giggle-web-service
+  namespace: fic-gig
+spec:
+  type: ClusterIP
+  selector:
+    app: fictional-giggle-web
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    # nodePort: 32300
