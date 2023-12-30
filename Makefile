@@ -8,7 +8,6 @@ push-image:
 	docker push caleb9083/fictional-giggle-web
 start-container:
 	docker run -p 3002:3000 --name web-giggle caleb9083/fictional-giggle-web
-
 stop-container:
 	docker rm -f web-giggle
 
@@ -43,6 +42,10 @@ ingress-create:
 	kubectl apply -f $(K8S_DIR)/web-ingress.yml
 ingress-delete:
 	kubectl delete -f $(K8S_DIR)/web-ingress.yml
+
+# Rollout
+rollout:
+	kubectl rollout restart deployment/fictional-giggle-web --namespace=fic-gig
 
 # Resource Query
 pods:
