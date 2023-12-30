@@ -6,6 +6,10 @@ metadata:
   labels:
     name: web-ingress
 spec:
+  # tls:
+  #   - hosts:
+  #     - fictional-giggle.com
+  #     secretName: fic-gig-tls
   rules:
     - host: fictional-giggle.com
       http:
