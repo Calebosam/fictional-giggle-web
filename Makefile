@@ -47,6 +47,10 @@ ingress-delete:
 rollout:
 	kubectl rollout restart deployment/fictional-giggle-web --namespace=fic-gig
 
+# Application
+start: ns-create dockerhub-cred-create web-create ingress-create
+stop: ingress-delete web-delete dockerhub-cred-delete ns-delete
+
 # Resource Query
 pods:
 	kubectl get pods
